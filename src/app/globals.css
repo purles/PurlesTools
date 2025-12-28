@@ -1,0 +1,730 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #050508;
+  color: #e4e4e7;
+  overflow-x: hidden;
+}
+
+/* ===========================================
+   ANIMATED BACKGROUND - Living particles
+   =========================================== */
+
+.animated-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Premium layered blobs - organic shapes */
+.blob {
+  position: absolute;
+  filter: blur(180px);
+  opacity: 0.6;
+  mix-blend-mode: screen;
+}
+
+/* Layer 1: Large base blobs */
+.blob-1 {
+  width: 900px;
+  height: 700px;
+  background: radial-gradient(ellipse at 30% 40%,
+    rgba(107, 69, 128, 0.5) 0%,
+    rgba(78, 50, 97, 0.2) 40%,
+    transparent 70%
+  );
+  top: -20%;
+  left: -25%;
+  animation: morphFloat1 30s ease-in-out infinite;
+}
+
+.blob-2 {
+  width: 1000px;
+  height: 600px;
+  background: radial-gradient(ellipse at 70% 60%,
+    rgba(78, 50, 97, 0.45) 0%,
+    rgba(107, 69, 128, 0.15) 45%,
+    transparent 70%
+  );
+  top: 50%;
+  right: -30%;
+  animation: morphFloat2 35s ease-in-out infinite;
+  animation-delay: -10s;
+}
+
+.blob-3 {
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(ellipse at 50% 50%,
+    rgba(139, 92, 159, 0.35) 0%,
+    rgba(107, 69, 128, 0.1) 50%,
+    transparent 70%
+  );
+  bottom: -10%;
+  left: 30%;
+  animation: morphFloat3 28s ease-in-out infinite;
+  animation-delay: -5s;
+}
+
+/* Layer 2: Medium accent blobs with blend */
+.blob-4 {
+  width: 600px;
+  height: 500px;
+  background: radial-gradient(ellipse at 40% 30%,
+    rgba(157, 108, 176, 0.4) 0%,
+    rgba(139, 92, 159, 0.15) 40%,
+    transparent 65%
+  );
+  top: 15%;
+  left: 40%;
+  animation: morphFloat4 25s ease-in-out infinite;
+  animation-delay: -8s;
+  mix-blend-mode: lighten;
+}
+
+.blob-5 {
+  width: 550px;
+  height: 450px;
+  background: radial-gradient(ellipse at 60% 70%,
+    rgba(107, 69, 128, 0.4) 0%,
+    rgba(78, 50, 97, 0.12) 45%,
+    transparent 70%
+  );
+  top: 60%;
+  left: 5%;
+  animation: morphFloat5 32s ease-in-out infinite;
+  animation-delay: -15s;
+  mix-blend-mode: lighten;
+}
+
+.blob-6 {
+  width: 500px;
+  height: 600px;
+  background: radial-gradient(ellipse at 35% 55%,
+    rgba(139, 92, 159, 0.35) 0%,
+    rgba(157, 108, 176, 0.1) 50%,
+    transparent 70%
+  );
+  top: 5%;
+  right: 10%;
+  animation: morphFloat6 27s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+/* Layer 3: Small highlight blobs */
+.blob-7 {
+  width: 350px;
+  height: 300px;
+  background: radial-gradient(ellipse,
+    rgba(180, 140, 200, 0.5) 0%,
+    rgba(157, 108, 176, 0.15) 40%,
+    transparent 65%
+  );
+  top: 35%;
+  left: 25%;
+  animation: morphFloat7 20s ease-in-out infinite;
+  animation-delay: -12s;
+  filter: blur(120px);
+  mix-blend-mode: screen;
+}
+
+.blob-8 {
+  width: 300px;
+  height: 350px;
+  background: radial-gradient(ellipse,
+    rgba(157, 108, 176, 0.45) 0%,
+    rgba(139, 92, 159, 0.1) 45%,
+    transparent 70%
+  );
+  top: 70%;
+  right: 25%;
+  animation: morphFloat8 23s ease-in-out infinite;
+  animation-delay: -7s;
+  filter: blur(100px);
+}
+
+.blob-9 {
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(ellipse,
+    rgba(180, 150, 210, 0.4) 0%,
+    transparent 60%
+  );
+  top: 20%;
+  right: 35%;
+  animation: morphFloat9 18s ease-in-out infinite;
+  animation-delay: -20s;
+  filter: blur(90px);
+  mix-blend-mode: screen;
+}
+
+.blob-10 {
+  width: 250px;
+  height: 300px;
+  background: radial-gradient(ellipse,
+    rgba(139, 92, 159, 0.5) 0%,
+    transparent 55%
+  );
+  bottom: 25%;
+  left: 60%;
+  animation: morphFloat10 22s ease-in-out infinite;
+  animation-delay: -18s;
+  filter: blur(110px);
+}
+
+/* Noise overlay for organic texture */
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Morphing float animations - different paths for organic movement */
+@keyframes morphFloat1 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  20% { transform: translate(30px, -40px) rotate(5deg) scale(1.05); }
+  40% { transform: translate(-20px, 30px) rotate(-3deg) scale(0.98); }
+  60% { transform: translate(50px, 20px) rotate(8deg) scale(1.02); }
+  80% { transform: translate(-40px, -20px) rotate(-5deg) scale(1.04); }
+}
+
+@keyframes morphFloat2 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  25% { transform: translate(-50px, 30px) rotate(-8deg) scale(1.03); }
+  50% { transform: translate(30px, -50px) rotate(5deg) scale(0.97); }
+  75% { transform: translate(-30px, -30px) rotate(-4deg) scale(1.05); }
+}
+
+@keyframes morphFloat3 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  33% { transform: translate(40px, 40px) rotate(6deg) scale(1.04); }
+  66% { transform: translate(-50px, 20px) rotate(-7deg) scale(0.96); }
+}
+
+@keyframes morphFloat4 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  30% { transform: translate(-30px, 50px) scale(1.08); }
+  60% { transform: translate(40px, -30px) scale(0.95); }
+}
+
+@keyframes morphFloat5 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  40% { transform: translate(60px, -40px) rotate(10deg); }
+  70% { transform: translate(-40px, 30px) rotate(-6deg); }
+}
+
+@keyframes morphFloat6 {
+  0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  35% { transform: translate(-40px, -50px) scale(1.06) rotate(-8deg); }
+  65% { transform: translate(30px, 40px) scale(0.98) rotate(5deg); }
+}
+
+@keyframes morphFloat7 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, 50px) scale(1.1); }
+}
+
+@keyframes morphFloat8 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(-40px, 30px); }
+  66% { transform: translate(30px, -40px); }
+}
+
+@keyframes morphFloat9 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40% { transform: translate(30px, -30px) scale(1.15); }
+  80% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+@keyframes morphFloat10 {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-50px, -30px) rotate(15deg); }
+}
+
+/* Floating particles */
+.particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(157, 108, 176, 0.8);
+  border-radius: 50%;
+  animation: rise 15s linear infinite;
+  box-shadow: 0 0 10px rgba(157, 108, 176, 0.5);
+}
+
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
+.particle:nth-child(2) { left: 20%; animation-delay: -2s; animation-duration: 15s; }
+.particle:nth-child(3) { left: 30%; animation-delay: -4s; animation-duration: 18s; }
+.particle:nth-child(4) { left: 40%; animation-delay: -6s; animation-duration: 14s; }
+.particle:nth-child(5) { left: 50%; animation-delay: -8s; animation-duration: 16s; }
+.particle:nth-child(6) { left: 60%; animation-delay: -10s; animation-duration: 13s; }
+.particle:nth-child(7) { left: 70%; animation-delay: -12s; animation-duration: 17s; }
+.particle:nth-child(8) { left: 80%; animation-delay: -14s; animation-duration: 11s; }
+.particle:nth-child(9) { left: 90%; animation-delay: -16s; animation-duration: 19s; }
+.particle:nth-child(10) { left: 15%; animation-delay: -1s; animation-duration: 14s; }
+.particle:nth-child(11) { left: 25%; animation-delay: -3s; animation-duration: 16s; }
+.particle:nth-child(12) { left: 35%; animation-delay: -5s; animation-duration: 12s; }
+.particle:nth-child(13) { left: 45%; animation-delay: -7s; animation-duration: 18s; }
+.particle:nth-child(14) { left: 55%; animation-delay: -9s; animation-duration: 15s; }
+.particle:nth-child(15) { left: 65%; animation-delay: -11s; animation-duration: 13s; }
+.particle:nth-child(16) { left: 75%; animation-delay: -13s; animation-duration: 17s; }
+.particle:nth-child(17) { left: 85%; animation-delay: -15s; animation-duration: 14s; }
+.particle:nth-child(18) { left: 95%; animation-delay: -17s; animation-duration: 16s; }
+.particle:nth-child(19) { left: 5%; animation-delay: -18s; animation-duration: 15s; }
+.particle:nth-child(20) { left: 50%; animation-delay: -19s; animation-duration: 20s; }
+
+@keyframes rise {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Grid overlay */
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(107, 69, 128, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(107, 69, 128, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+}
+
+/* ===========================================
+   GLASSMORPHISM PROJECT CARDS WITH SPOTLIGHT
+   =========================================== */
+
+.project-card {
+  position: relative;
+  background: rgba(20, 20, 25, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(107, 69, 128, 0.2);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(157, 108, 176, 0.4);
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(107, 69, 128, 0.2);
+}
+
+/* Spotlight effect - follows mouse */
+.spotlight {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(157, 108, 176, 0.15) 0%,
+    rgba(107, 69, 128, 0.05) 25%,
+    transparent 50%
+  );
+  opacity: var(--spotlight-opacity);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Border glow on hover */
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y),
+    rgba(157, 108, 176, 0.3) 0%,
+    transparent 40%
+  );
+  opacity: var(--spotlight-opacity);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 16px;
+}
+
+/* Outer glow */
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(
+    400px circle at var(--mouse-x) var(--mouse-y),
+    rgba(157, 108, 176, 0.5) 0%,
+    transparent 50%
+  );
+  opacity: var(--spotlight-opacity);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+  border-radius: 17px;
+  filter: blur(10px);
+}
+
+/* ===========================================
+   STICKY NAVIGATION WITH STAGGER + PROGRESS
+   =========================================== */
+
+.sticky-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(5, 5, 8, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(107, 69, 128, 0.15);
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sticky-nav.visible {
+  transform: translateY(0);
+}
+
+/* Stagger animation for nav links - slow and elegant */
+.sticky-nav.visible .nav-link {
+  animation: staggerIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+@keyframes staggerIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  50% {
+    opacity: 0.6;
+  }
+  70% {
+    transform: translateY(3px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.nav-link {
+  position: relative;
+  padding: 0.5rem 1rem;
+  color: #a1a1aa;
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #c4a7d0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #6b4580, #9d6cb0);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 1px;
+  box-shadow: 0 0 10px rgba(157, 108, 176, 0.5);
+}
+
+.nav-link:hover::after {
+  width: 70%;
+}
+
+/* Progress bar with glow */
+.progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(107, 69, 128, 0.1);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #6b4580, #9d6cb0, #c4a7d0);
+  box-shadow:
+    0 0 10px rgba(157, 108, 176, 0.8),
+    0 0 20px rgba(157, 108, 176, 0.5),
+    0 0 30px rgba(157, 108, 176, 0.3);
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ===========================================
+   HERO SECTION
+   =========================================== */
+
+.hero-title {
+  background: linear-gradient(135deg, #e4e4e7 0%, #9d6cb0 50%, #6b4580 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: gradient-shift 5s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ===========================================
+   CATEGORY STYLES
+   =========================================== */
+
+.category-title {
+  background: linear-gradient(90deg, #e4e4e7 0%, #9d6cb0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.category-bar {
+  width: 4px;
+  height: 32px;
+  background: linear-gradient(180deg, #6b4580 0%, #9d6cb0 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(107, 69, 128, 0.6);
+}
+
+/* ===========================================
+   BUTTONS
+   =========================================== */
+
+.btn-primary {
+  position: relative;
+  background: linear-gradient(135deg, #4e3261 0%, #6b4580 100%);
+  border: 1px solid rgba(157, 108, 176, 0.3);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #6b4580 0%, #9d6cb0 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(107, 69, 128, 0.4);
+}
+
+.btn-primary:hover::before {
+  opacity: 1;
+}
+
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===========================================
+   EXPAND ANIMATION
+   =========================================== */
+
+/* Chevron indicator for expandable cards */
+.chevron-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(107, 69, 128, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.chevron-indicator svg {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chevron-indicator.expanded {
+  background: rgba(157, 108, 176, 0.2);
+}
+
+.chevron-indicator.expanded svg {
+  transform: rotate(180deg);
+  color: #9d6cb0;
+}
+
+.project-card:hover .chevron-indicator {
+  background: rgba(157, 108, 176, 0.15);
+}
+
+.project-card:hover .chevron-indicator svg {
+  color: #9d6cb0;
+}
+
+.expanded-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  opacity: 0;
+}
+
+.expanded-content.open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+/* ===========================================
+   FLOATING BUTTONS
+   =========================================== */
+
+.float-btn {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(78, 50, 97, 0.8);
+  border: 1px solid rgba(157, 108, 176, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.float-btn:hover {
+  background: rgba(107, 69, 128, 0.9);
+  transform: scale(1.1);
+  box-shadow: 0 15px 50px rgba(107, 69, 128, 0.5);
+}
+
+/* ===========================================
+   FOOTER - Seamless fade with particles
+   =========================================== */
+
+.footer-section {
+  position: relative;
+  background: transparent;
+}
+
+/* Particles that get denser toward bottom */
+.footer-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.footer-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(157, 108, 176, 0.6);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(157, 108, 176, 0.4);
+}
+
+/* Generate 30 particles with increasing density toward bottom */
+.fp-1 { left: 5%; top: 90%; animation: twinkle 3s ease-in-out infinite; }
+.fp-2 { left: 12%; top: 85%; animation: twinkle 4s ease-in-out infinite 0.5s; }
+.fp-3 { left: 20%; top: 92%; animation: twinkle 3.5s ease-in-out infinite 1s; }
+.fp-4 { left: 28%; top: 88%; animation: twinkle 4.5s ease-in-out infinite 0.3s; }
+.fp-5 { left: 35%; top: 95%; animation: twinkle 3s ease-in-out infinite 0.8s; }
+.fp-6 { left: 42%; top: 82%; animation: twinkle 5s ease-in-out infinite 0.2s; }
+.fp-7 { left: 50%; top: 90%; animation: twinkle 3.8s ease-in-out infinite 1.2s; }
+.fp-8 { left: 58%; top: 87%; animation: twinkle 4.2s ease-in-out infinite 0.6s; }
+.fp-9 { left: 65%; top: 93%; animation: twinkle 3.2s ease-in-out infinite 0.9s; }
+.fp-10 { left: 72%; top: 85%; animation: twinkle 4.8s ease-in-out infinite 0.4s; }
+.fp-11 { left: 80%; top: 91%; animation: twinkle 3.6s ease-in-out infinite 1.1s; }
+.fp-12 { left: 88%; top: 88%; animation: twinkle 4s ease-in-out infinite 0.7s; }
+.fp-13 { left: 95%; top: 94%; animation: twinkle 3.4s ease-in-out infinite 1.3s; }
+.fp-14 { left: 8%; top: 75%; animation: twinkle 5.5s ease-in-out infinite 0.1s; }
+.fp-15 { left: 18%; top: 78%; animation: twinkle 4.5s ease-in-out infinite 0.85s; }
+.fp-16 { left: 32%; top: 72%; animation: twinkle 5s ease-in-out infinite 1.5s; }
+.fp-17 { left: 45%; top: 76%; animation: twinkle 4.2s ease-in-out infinite 0.45s; }
+.fp-18 { left: 55%; top: 70%; animation: twinkle 5.2s ease-in-out infinite 1.05s; }
+.fp-19 { left: 68%; top: 74%; animation: twinkle 4.8s ease-in-out infinite 0.25s; }
+.fp-20 { left: 82%; top: 77%; animation: twinkle 5.5s ease-in-out infinite 1.4s; }
+.fp-21 { left: 92%; top: 73%; animation: twinkle 4.5s ease-in-out infinite 0.65s; }
+.fp-22 { left: 15%; top: 60%; animation: twinkle 6s ease-in-out infinite 0.15s; opacity: 0.5; }
+.fp-23 { left: 38%; top: 55%; animation: twinkle 5.8s ease-in-out infinite 0.95s; opacity: 0.4; }
+.fp-24 { left: 52%; top: 58%; animation: twinkle 6.2s ease-in-out infinite 0.35s; opacity: 0.5; }
+.fp-25 { left: 75%; top: 52%; animation: twinkle 5.5s ease-in-out infinite 1.25s; opacity: 0.4; }
+.fp-26 { left: 25%; top: 40%; animation: twinkle 7s ease-in-out infinite 0.55s; opacity: 0.3; }
+.fp-27 { left: 60%; top: 35%; animation: twinkle 6.5s ease-in-out infinite 1.35s; opacity: 0.25; }
+.fp-28 { left: 85%; top: 42%; animation: twinkle 7.5s ease-in-out infinite 0.75s; opacity: 0.3; }
+.fp-29 { left: 40%; top: 25%; animation: twinkle 8s ease-in-out infinite 1.15s; opacity: 0.2; }
+.fp-30 { left: 70%; top: 20%; animation: twinkle 7s ease-in-out infinite 0.05s; opacity: 0.15; }
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+/* ===========================================
+   SCROLLBAR
+   =========================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4e3261, #6b4580);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #6b4580, #9d6cb0);
+}
+
+/* Selection */
+::selection {
+  background: rgba(107, 69, 128, 0.5);
+  color: #fff;
+}
